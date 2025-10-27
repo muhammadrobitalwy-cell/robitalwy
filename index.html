@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo-opi.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4a2b0f">
+  <title>Kharisma Food</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img id="logoPerusahaan" src="logo-opi.png" alt="Logo OPI FOOD">
+    <h1 id="mottoPerusahaan">Melayani Sepenuh Hati</h1>
+  </header>
+  
+  <header class="app-header">
+  <h1>Kharisma Food</h1>
+  <button id="btnLogout" class="btn-logout">Logout</button>
+</header>
+
+
+
+
+
+  <main class="container">
+    <div id="formSection" class="card">
+      <h2>Catat Transaksi Keuangan</h2>
+
+      <!-- Tombol mic otomatis -->
+      <button type="button" id="btnMicOtomatis">
+        🎤 Isi Otomatis Suara
+      </button>
+
+      <!-- Status suara -->
+      <p id="statusSuara"></p>
+
+      <form>
+        <label>Debit (Pemasukan)</label>
+        <div class="input-group">
+          <span>Rp</span>
+          <input type="text" id="pemasukan" inputmode="numeric" placeholder="0" oninput="formatRupiahInput(this)">
+        </div>
+
+        <label>Kredit (Pengeluaran)</label>
+        <div class="input-group">
+          <span>Rp</span>
+          <input type="text" id="pengeluaran" inputmode="numeric" placeholder="0" oninput="formatRupiahInput(this)">
+        </div>
+
+        <label>Keterangan</label>
+        <textarea id="keterangan" placeholder="Catatan transaksi..."></textarea>
+
+        <button type="button" id="btnSimpan">💾 Simpan</button>
+        <div id="alertBox" class="alert"></div>
+      </form>
+    </div>
+
+    <div id="laporanSection" class="card">
+      <div id="saldoSekarang" class="saldo">Saldo Sekarang: Rp 0</div>
+
+      <table id="tabelLaporan">
+        <tr>
+          <th>No.</th>
+          <th>Tanggal</th>
+          <th>Keterangan</th>
+          <th>Debit</th>
+          <th>Kredit</th>
+          <th>Saldo</th>
+		  <th class="aksiHeader" style="display:none;">Aksi</th>
+        </tr>
+      </table>
+    </div>
+  </main>
+  
+  <!-- Modal Edit -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Edit Transaksi</h3>
+    <label>Debit (Pemasukan)</label>
+    <div class="input-group">
+      <span>Rp</span>
+      <input type="text" id="editPemasukan" inputmode="numeric" placeholder="0" oninput="formatRupiahInput(this)">
+    </div>
+
+    <label>Kredit (Pengeluaran)</label>
+    <div class="input-group">
+      <span>Rp</span>
+      <input type="text" id="editPengeluaran" inputmode="numeric" placeholder="0" oninput="formatRupiahInput(this)">
+    </div>
+
+    <label>Keterangan</label>
+    <textarea id="editKeterangan" placeholder="Catatan transaksi..."></textarea>
+
+    <button id="btnUpdate">💾 Update</button>
+  </div>
+</div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

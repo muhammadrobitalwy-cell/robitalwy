@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo-opi.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4a2b0f">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <img src="logo-opi.png" alt="Logo OPI FOOD" class="login-logo">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="btnLogin">Masuk</button>
+    <div id="alertBox" class="alert"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://igqyanangsakokphgvkg.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlncXlhbmFuZ3Nha29rcGhndmtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MTk0NTEsImV4cCI6MjA3Njk5NTQ1MX0.LbbRU352LRt-bc9E7mCraBt9bXmitI5jt21-nvTGTRk';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+	
+	// 🟡 Jika sudah login, langsung ke index.html
+    if (localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html";
+    }
+
+    const btnLogin = document.getElementById('btnLogin');
+    const alertBox = document.getElementById('alertBox');
+
+    // =================== INGAT EMAIL OTOMATIS ===================
+    const emailInput = document.getElementById('email');
+    if (emailInput) {
+      const savedEmail = localStorage.getItem('rememberedEmail');
+      if (savedEmail) {
+        emailInput.value = savedEmail;
+      }
+
+      emailInput.addEventListener('input', () => {
+        localStorage.setItem('rememberedEmail', emailInput.value);
+      });
+    }
+
+    // =================== ALERT ===================
+    function showAlert(message, type = 'error') {
+      alertBox.textContent = message;
+      alertBox.className = `alert ${type}`;
+      alertBox.style.display = 'block';
+      setTimeout(() => alertBox.style.opacity = 1, 10);
+      setTimeout(() => {
+        alertBox.style.opacity = 0;
+        setTimeout(() => (alertBox.style.display = 'none'), 400);
+      }, 3000);
+    }
+
+    // =================== LOGIN HANDLER ===================
+    btnLogin.addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        showAlert('Email dan password wajib diisi.');
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        showAlert('Login gagal: ' + error.message);
+      } else {
+        showAlert('Login berhasil! Mengarahkan...', 'success');
+        setTimeout(() => (window.location.href = 'index.html'), 1000);
+      }
+    });
+	
+  </script>
+</body>
+</html>
