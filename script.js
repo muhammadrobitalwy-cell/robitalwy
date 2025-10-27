@@ -8,14 +8,23 @@ let perusahaanId = null;
 let userRole = 'user';
 
 // =================== INISIALISASI ===================
+// Di script.js (dijalankan saat index.html dimuat)
 (async () => {
   const { data: authData } = await supabase.auth.getUser();
   const user = authData?.user;
+  
+  // Sembunyikan alert, ganti dengan console.log jika sudah deploy
+  // alert('Silakan login terlebih dahulu'); 
+  
   if (!user) {
-    alert('Silakan login terlebih dahulu');
-    window.location.href = 'login.html';
+    // Ganti window.location.href dengan window.location.replace untuk bersih
+    window.location.replace('login.html');
     return;
   }
+  
+  // PENTING: Jika sesi ditemukan, tampilkan konten aplikasi
+  document.body.classList.remove('loading'); 
+
 
   const { data: userData } = await supabase
     .from('users')
