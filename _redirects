@@ -1,7 +1,1 @@
-# Biarkan aplikasi (melalui script/Service Worker) yang menentukan kemana arah /
-# (Biasanya script akan memeriksa sesi dan me-redirect ke login.html jika tidak ada sesi)
-/           /index.html    200
-
-# Fallback untuk semua path yang bukan file (SPA Deep Linking)
 /* /index.html    200
-
