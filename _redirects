@@ -1,2 +1,8 @@
+# Redirect root ke login page
 /           /login.html    302
-/*          /index.html    200
+
+# Fallback untuk SPA (hanya jika path tidak cocok dengan file yang ada)
+# Menggunakan status 200 (rewrite) untuk deep linking tanpa redirect
+# Cloudflare umumnya menangani pengecualian aset secara otomatis,
+# tapi jika masih terjadi loop, tambahkan pengecualian spesifik (lihat di bawah)
+/* /index.html    200
