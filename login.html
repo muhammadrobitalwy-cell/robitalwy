@@ -73,7 +73,10 @@
         showAlert('Login gagal: ' + error.message);
       } else {
         showAlert('Login berhasil! Mengarahkan...', 'success');
-        setTimeout(() => (window.location.href = 'index.html'), 1000);
+        setTimeout(() => {
+		    // Gunakan replace() agar user tidak bisa 'back' ke halaman login
+		    window.location.replace('index.html');
+		}, 500);
       }
     });
 	
